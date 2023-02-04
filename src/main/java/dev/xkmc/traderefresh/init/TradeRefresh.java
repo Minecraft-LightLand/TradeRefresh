@@ -1,29 +1,26 @@
-package dev.xkmc.mastertrader.init;
+package dev.xkmc.traderefresh.init;
 
 import dev.xkmc.l2library.base.L2Registrate;
 import dev.xkmc.l2library.repack.registrate.providers.ProviderType;
 import dev.xkmc.l2library.serial.network.PacketHandler;
-import dev.xkmc.mastertrader.common.RestockEventHandler;
-import dev.xkmc.mastertrader.network.RefreshToServer;
+import dev.xkmc.traderefresh.common.RestockEventHandler;
+import dev.xkmc.traderefresh.network.RefreshToServer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.NetworkDirection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod("mastertrader")
-public class MasterTrader {
+@Mod(TradeRefresh.MODID)
+public class TradeRefresh {
 
-	public static final String MODID = "mastertrader";
+	public static final String MODID = "traderefresh";
 	public static final Logger LOGGER = LogManager.getLogger();
 	public static final L2Registrate REGISTRATE = new L2Registrate(MODID);
 
@@ -43,25 +40,13 @@ public class MasterTrader {
 	private static void registerModBusEvents(IEventBus bus) {
 	}
 
-	public MasterTrader() {
+	public TradeRefresh() {
 		FMLJavaModLoadingContext ctx = FMLJavaModLoadingContext.get();
 		IEventBus bus = ctx.getModEventBus();
 		registerModBusEvents(bus);
-		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MasterTraderClient.onCtorClient(bus, MinecraftForge.EVENT_BUS));
+		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> TradeRefreshClient.onCtorClient(bus, MinecraftForge.EVENT_BUS));
 		registerRegistrates(bus);
 		registerForgeEvents();
-	}
-
-	public static void gatherData(GatherDataEvent event) {
-
-	}
-
-	public static void registerCaps(RegisterCapabilitiesEvent event) {
-
-	}
-
-	private static void sendMessage(final InterModEnqueueEvent event) {
-
 	}
 
 }

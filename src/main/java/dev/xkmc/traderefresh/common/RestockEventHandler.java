@@ -1,4 +1,4 @@
-package dev.xkmc.mastertrader.common;
+package dev.xkmc.traderefresh.common;
 
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionResult;

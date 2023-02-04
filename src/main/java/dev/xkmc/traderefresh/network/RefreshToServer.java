@@ -1,4 +1,4 @@
-package dev.xkmc.mastertrader.network;
+package dev.xkmc.traderefresh.network;
 
 import dev.xkmc.l2library.serial.SerialClass;
 import dev.xkmc.l2library.serial.network.SerialPacketBase;

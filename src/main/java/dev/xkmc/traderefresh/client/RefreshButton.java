@@ -1,8 +1,8 @@
-package dev.xkmc.mastertrader.client;
+package dev.xkmc.traderefresh.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import dev.xkmc.mastertrader.init.MasterTrader;
-import dev.xkmc.mastertrader.network.RefreshToServer;
+import dev.xkmc.traderefresh.init.TradeRefresh;
+import dev.xkmc.traderefresh.network.RefreshToServer;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.MerchantScreen;
 import net.minecraft.network.chat.Component;
@@ -23,7 +23,7 @@ public class RefreshButton extends Button {
 	@Override
 	public void onPress() {
 		active = false;
-		MasterTrader.HANDLER.toServer(new RefreshToServer());
+		TradeRefresh.HANDLER.toServer(new RefreshToServer());
 	}
 
 	@Override

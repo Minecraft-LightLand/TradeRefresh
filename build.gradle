@@ -19,8 +19,8 @@ apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 version = "${ll_version}"
-group = 'dev.xkmc.mastertrader' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'mastertrader'
+group = 'dev.xkmc.traderefresh' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = 'traderefresh'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -32,13 +32,13 @@ minecraft {
     runs {
         client {
             workingDirectory project.file('run')
-            arg '-mixin.config=mastertrader.mixins.json'
+            arg '-mixin.config=traderefresh.mixins.json'
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'info'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             mods {
-                mastertrader {
+                traderefresh {
                     source sourceSets.main
                 }
             }
@@ -46,13 +46,13 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
-            arg '-mixin.config=mastertrader.mixins.json'
+            arg '-mixin.config=traderefresh.mixins.json'
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'info'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             mods {
-                mastertrader {
+                traderefresh {
                     source sourceSets.main
                 }
             }
@@ -60,17 +60,17 @@ minecraft {
 
         data {
             workingDirectory project.file('run')
-            arg '-mixin.config=mastertrader.mixins.json'
+            arg '-mixin.config=traderefresh.mixins.json'
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'info'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            args '--mod', 'mastertrader', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'traderefresh', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                mastertrader {
+                traderefresh {
                     source sourceSets.main
                 }
             }
@@ -82,8 +82,8 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 mixin {
-    add sourceSets.main, 'mastertrader.refmap.json'
-    config 'mastertrader.mixins.json'
+    add sourceSets.main, 'traderefresh.refmap.json'
+    config 'traderefresh.mixins.json'
 }
 
 repositories {
@@ -149,14 +149,14 @@ dependencies {
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "mastertrader",
+                "Specification-Title"     : "traderefresh",
                 "Specification-Vendor"    : "xkmc",
                 "Specification-Version"   : "1", // We are version 1 of ourselves
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
                 "Implementation-Vendor"   : "xkmc",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                'MixinConfigs'            : 'mastertrader.mixins.json'
+                'MixinConfigs'            : 'traderefresh.mixins.json'
         ])
     }
 }

@@ -1,9 +1,9 @@
 {
   "required": true,
   "priority": 1000,
-  "package": "dev.xkmc.mastertrader.mixin",
+  "package": "dev.xkmc.traderefresh.mixin",
   "compatibilityLevel": "JAVA_16",
-  "refmap": "mastertrader.refmap.json",
+  "refmap": "traderefresh.refmap.json",
   "mixins": [
   ],
   "client": [

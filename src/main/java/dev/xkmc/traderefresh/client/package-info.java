@@ -1,7 +1,7 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 
-package dev.xkmc.mastertrader.network;
+package dev.xkmc.traderefresh.client;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
 
