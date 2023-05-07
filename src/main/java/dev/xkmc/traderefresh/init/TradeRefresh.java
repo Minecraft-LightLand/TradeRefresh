@@ -1,6 +1,7 @@
 package dev.xkmc.traderefresh.init;
 
 import dev.xkmc.l2serial.network.BasePacketHandler;
+import dev.xkmc.l2serial.serialization.custom_handler.Handlers;
 import dev.xkmc.traderefresh.common.RestockEventHandler;
 import dev.xkmc.traderefresh.network.RefreshToServer;
 import net.minecraft.resources.ResourceLocation;
@@ -9,6 +10,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.NetworkDirection;
 import org.apache.logging.log4j.LogManager;
@@ -31,14 +33,20 @@ public class TradeRefresh {
 	}
 
 	private static void registerModBusEvents(IEventBus bus) {
+		bus.addListener(TradeRefresh::commonSetup);
 	}
 
 	public TradeRefresh() {
+		Handlers.register();
 		FMLJavaModLoadingContext ctx = FMLJavaModLoadingContext.get();
 		IEventBus bus = ctx.getModEventBus();
 		registerModBusEvents(bus);
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> TradeRefreshClient.onCtorClient(bus, MinecraftForge.EVENT_BUS));
 		registerForgeEvents();
+	}
+
+	private static void commonSetup(FMLCommonSetupEvent event) {
+		event.enqueueWork(HANDLER::registerPackets);
 	}
 
 }
