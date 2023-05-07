@@ -16,7 +16,7 @@ public class RefreshButton extends Button {
 	public RefreshButton(MerchantScreen parent) {
 		super(parent.getGuiLeft() + parent.getXSize() - 24, parent.getGuiTop() + 4, 20, 20,
 				TITLE, e -> {
-				});
+				}, DEFAULT_NARRATION);
 		this.parent = parent;
 	}
 
@@ -31,9 +31,10 @@ public class RefreshButton extends Button {
 		return super.isActive();
 	}
 
+
 	@Override
-	public void renderButton(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
+	public void renderWidget(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
 		this.active = parent.getMenu().getTraderXp() == 0;
-		super.renderButton(pPoseStack, pMouseX, pMouseY, pPartialTick);
+		super.renderWidget(pPoseStack, pMouseX, pMouseY, pPartialTick);
 	}
 }

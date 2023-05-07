@@ -13,17 +13,12 @@ description='''
 [[dependencies.traderefresh]]
     modId="forge"
     mandatory=true
-    versionRange="[42.0.0,)"
+    versionRange="[45.0.0,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.traderefresh]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19.1,1.20)"
+    versionRange="[1.19.4,1.20)"
     ordering="NONE"
     side="BOTH"
-[[dependencies.traderefresh]]
-    modId="l2library"
-    mandatory=true
-    versionRange="[1.7.0,)"
-    ordering="AFTER"

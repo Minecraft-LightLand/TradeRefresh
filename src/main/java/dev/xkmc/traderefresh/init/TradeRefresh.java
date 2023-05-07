@@ -1,8 +1,6 @@
 package dev.xkmc.traderefresh.init;
 
-import dev.xkmc.l2library.base.L2Registrate;
-import dev.xkmc.l2library.repack.registrate.providers.ProviderType;
-import dev.xkmc.l2library.serial.network.PacketHandler;
+import dev.xkmc.l2serial.network.BasePacketHandler;
 import dev.xkmc.traderefresh.common.RestockEventHandler;
 import dev.xkmc.traderefresh.network.RefreshToServer;
 import net.minecraft.resources.ResourceLocation;
@@ -22,16 +20,11 @@ public class TradeRefresh {
 
 	public static final String MODID = "traderefresh";
 	public static final Logger LOGGER = LogManager.getLogger();
-	public static final L2Registrate REGISTRATE = new L2Registrate(MODID);
 
-	public static final PacketHandler HANDLER = new PacketHandler(
+	public static final BasePacketHandler HANDLER = new BasePacketHandler(
 			new ResourceLocation(MODID, "main"), 1
 			, e -> e.create(RefreshToServer.class, NetworkDirection.PLAY_TO_SERVER)
 	);
-
-	private static void registerRegistrates(IEventBus bus) {
-		REGISTRATE.addDataGenerator(ProviderType.LANG, LangData::addTranslations);
-	}
 
 	private static void registerForgeEvents() {
 		MinecraftForge.EVENT_BUS.register(RestockEventHandler.class);
@@ -45,7 +38,6 @@ public class TradeRefresh {
 		IEventBus bus = ctx.getModEventBus();
 		registerModBusEvents(bus);
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> TradeRefreshClient.onCtorClient(bus, MinecraftForge.EVENT_BUS));
-		registerRegistrates(bus);
 		registerForgeEvents();
 	}
 

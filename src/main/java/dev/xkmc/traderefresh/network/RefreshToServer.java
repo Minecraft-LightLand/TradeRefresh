@@ -1,7 +1,7 @@
 package dev.xkmc.traderefresh.network;
 
-import dev.xkmc.l2library.serial.SerialClass;
-import dev.xkmc.l2library.serial.network.SerialPacketBase;
+import dev.xkmc.l2serial.network.SerialPacketBase;
+import dev.xkmc.l2serial.serialization.SerialClass;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.inventory.MerchantMenu;
