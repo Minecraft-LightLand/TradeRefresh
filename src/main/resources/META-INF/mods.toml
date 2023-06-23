@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[42,)"
+loaderVersion="[46,)"
 license="LGPL v2.1"
 [[mods]]
 modId="traderefresh"
@@ -13,12 +13,12 @@ description='''
 [[dependencies.traderefresh]]
     modId="forge"
     mandatory=true
-    versionRange="[45.0.0,)"
+    versionRange="[46.0.0,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.traderefresh]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19.4,1.20)"
+    versionRange="[1.20,1.21)"
     ordering="NONE"
     side="BOTH"

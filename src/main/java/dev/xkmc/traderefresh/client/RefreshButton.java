@@ -1,8 +1,8 @@
 package dev.xkmc.traderefresh.client;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import dev.xkmc.traderefresh.init.TradeRefresh;
 import dev.xkmc.traderefresh.network.RefreshToServer;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.MerchantScreen;
 import net.minecraft.network.chat.Component;
@@ -31,10 +31,9 @@ public class RefreshButton extends Button {
 		return super.isActive();
 	}
 
-
 	@Override
-	public void renderWidget(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
+	public void renderWidget(GuiGraphics g, int pMouseX, int pMouseY, float pPartialTick) {
 		this.active = parent.getMenu().getTraderXp() == 0;
-		super.renderWidget(pPoseStack, pMouseX, pMouseY, pPartialTick);
+		super.renderWidget(g, pMouseX, pMouseY, pPartialTick);
 	}
 }
