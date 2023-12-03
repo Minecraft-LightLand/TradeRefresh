@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "priority": 1000,
+  "package": "dev.xkmc.traderefresh.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "traderefresh.refmap.json",
+  "mixins": [
+    "EnchantmentMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}
