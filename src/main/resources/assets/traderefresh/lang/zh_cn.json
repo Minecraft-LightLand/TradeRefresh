@@ -1,4 +1,8 @@
 {
   "key.categories.traderefresh": "交易刷新按键",
-  "key.traderefresh.refresh": "刷新交易"
+  "key.traderefresh.refresh": "刷新交易",
+  "traderefresh.enchantable.true": "附魔台可出",
+  "traderefresh.enchantable.false": "附魔台禁用",
+  "traderefresh.tradable.true": "交易可出",
+  "traderefresh.tradable.false": "交易禁用"
 }

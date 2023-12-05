@@ -1,10 +1,16 @@
 package dev.xkmc.traderefresh.common;
 
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityEvent;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -33,6 +39,25 @@ public class RestockEventHandler {
 				villager.playSound(SoundEvents.VILLAGER_NO, 1, villager.getVoicePitch());
 			}
 		}
+	}
+
+	@SubscribeEvent
+	public static void onItemTooltip(ItemTooltipEvent event) {
+		if (!event.getItemStack().is(Items.ENCHANTED_BOOK)) return;
+		var map = EnchantmentHelper.getEnchantments(event.getItemStack());
+		if (map.size() != 1) return;
+		var opt = map.entrySet().stream().findFirst();
+		if (opt.isEmpty()) return;
+		Enchantment e = opt.get().getKey();
+		boolean enchatable = e.isDiscoverable() && !e.isTreasureOnly();
+		boolean tradable = e.isTradeable();
+		event.getToolTip().add(getComp("enchantable", enchatable));
+		event.getToolTip().add(getComp("tradable", tradable));
+	}
+
+	private static MutableComponent getComp(String str, boolean enabled) {
+		return Component.translatable("traderefresh." + str + "." + enabled)
+				.withStyle(enabled ? ChatFormatting.DARK_GREEN : ChatFormatting.DARK_RED);
 	}
 
 }

@@ -1,4 +1,8 @@
 {
   "key.categories.traderefresh": "Trade Refresh Keys",
-  "key.traderefresh.refresh": "Refresh Trade"
+  "key.traderefresh.refresh": "Refresh Trade",
+  "traderefresh.enchantable.true": "Valid in Enchatment Table",
+  "traderefresh.enchantable.false": "Invalid in Enchantment Table",
+  "traderefresh.tradable.true": "Valid in Villager Trade",
+  "traderefresh.tradable.false": "Invalid in Villager Trade"
 }
