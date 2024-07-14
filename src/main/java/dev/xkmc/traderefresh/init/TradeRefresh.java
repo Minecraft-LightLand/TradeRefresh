@@ -6,7 +6,7 @@ import dev.xkmc.traderefresh.network.RefreshToServer;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -27,8 +27,7 @@ public class TradeRefresh {
 	}
 
 	@SubscribeEvent
-	public static void registerPayload(RegisterPayloadHandlersEvent event) {
-		HANDLER.register(event);
+	public static void onCommonInit(FMLCommonSetupEvent event) {
 	}
 
 }
