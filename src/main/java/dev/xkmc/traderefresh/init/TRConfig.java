@@ -6,9 +6,6 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class TRConfig {
 
 	public static class Client {
@@ -18,7 +15,7 @@ public class TRConfig {
 		Client(ModConfigSpec.Builder builder) {
 			showEnchProperties = builder.comment("Show enchantment properties like tradeable and enchantable")
 					.comment("Will not work when Apotheosis is installed")
-					.define("showEnchProperties", true);
+					.define("showEnchProperties", false);
 		}
 
 	}
@@ -59,7 +56,7 @@ public class TRConfig {
 		register(ModConfig.Type.SERVER, SERVER_SPEC);
 	}
 
-	private static void register(ModConfig.Type type, IConfigSpec<?> spec) {
+	private static void register(ModConfig.Type type, IConfigSpec spec) {
 		var mod = ModLoadingContext.get().getActiveContainer();
 		String path = "l2_configs/" + mod.getModId() + "-" + type.extension() + ".toml";
 		ModLoadingContext.get().getActiveContainer().registerConfig(type, spec, path);
