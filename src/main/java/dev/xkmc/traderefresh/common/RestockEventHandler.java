@@ -9,7 +9,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityEvent;
-import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -19,7 +19,7 @@ import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 
-@EventBusSubscriber(modid = TradeRefresh.MODID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = TradeRefresh.MODID)
 public class RestockEventHandler {
 
 	@SubscribeEvent

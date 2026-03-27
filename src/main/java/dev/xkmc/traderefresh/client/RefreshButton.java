@@ -3,12 +3,13 @@ package dev.xkmc.traderefresh.client;
 import dev.xkmc.traderefresh.init.TRConfig;
 import dev.xkmc.traderefresh.init.TradeRefresh;
 import dev.xkmc.traderefresh.network.RefreshToServer;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.MerchantScreen;
+import net.minecraft.client.input.InputWithModifiers;
 import net.minecraft.network.chat.Component;
 
-public class RefreshButton extends Button {
+public class RefreshButton extends Button.Plain {
 
 	private static final Component TITLE = Component.literal("R");
 
@@ -22,7 +23,7 @@ public class RefreshButton extends Button {
 	}
 
 	@Override
-	public void onPress() {
+	public void onPress(InputWithModifiers input) {
 		active = false;
 		TradeRefresh.HANDLER.toServer(new RefreshToServer());
 	}
@@ -33,8 +34,9 @@ public class RefreshButton extends Button {
 	}
 
 	@Override
-	public void renderWidget(GuiGraphics g, int pMouseX, int pMouseY, float pPartialTick) {
+	public void extractContents(GuiGraphicsExtractor g, int mouseX, int mouseY, float a) {
 		this.active = TRConfig.SERVER.alwaysAllowRefresh.get() || parent.getMenu().getTraderXp() == 0;
-		super.renderWidget(g, pMouseX, pMouseY, pPartialTick);
+		super.extractContents(g, mouseX, mouseY, a);
 	}
+
 }

@@ -58,7 +58,7 @@ public class TRConfig {
 
 	private static void register(ModConfig.Type type, IConfigSpec spec) {
 		var mod = ModLoadingContext.get().getActiveContainer();
-		String path = "l2_configs/" + mod.getModId() + "-" + type.extension() + ".toml";
+		String path = mod.getModId() + "-" + type.extension() + ".toml";
 		ModLoadingContext.get().getActiveContainer().registerConfig(type, spec, path);
 	}
 

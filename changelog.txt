@@ -1,6 +1,2 @@
-3.0.1
-- Add back enchantment feature display (default off)
-
-3.0.0
-- Update to 1.21
-- Remove enchantment configuration
+26.1.0.0
+- Port to 26.1

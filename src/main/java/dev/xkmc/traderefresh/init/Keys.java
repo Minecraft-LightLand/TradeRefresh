@@ -14,7 +14,7 @@ public enum Keys {
 	Keys(String id, int key) {
 		this.id = id;
 		this.key = key;
-		map = new KeyMapping(id, key, "key.categories.traderefresh");
+		map = new KeyMapping(id, key, TradeRefreshClient.CATEGORY);
 	}
 
 }

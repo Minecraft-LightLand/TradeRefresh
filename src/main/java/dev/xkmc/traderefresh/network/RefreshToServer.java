@@ -3,7 +3,8 @@ package dev.xkmc.traderefresh.network;
 import dev.xkmc.l2serial.network.SerialPacketBase;
 import dev.xkmc.l2serial.serialization.marker.SerialClass;
 import dev.xkmc.traderefresh.init.TRConfig;
-import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MerchantMenu;
 
@@ -15,12 +16,13 @@ public record RefreshToServer() implements SerialPacketBase<RefreshToServer> {
 		if (!(player.containerMenu instanceof MerchantMenu gui)) return;
 		if (!(gui.trader instanceof Villager villager)) return;
 		if (TRConfig.SERVER.alwaysAllowRefresh.get()) {
+			if (!(player.level() instanceof ServerLevel sl)) return;
 			player.doCloseContainer();
 			var offer = villager.getOffers();
-			offer.remove(offer.size() - 1);
-			if (offer.size() % 2 != 0) offer.remove(offer.size() - 1);
+			offer.removeLast();
+			if (offer.size() % 2 != 0) offer.removeLast();
 			villager.setOffers(offer);
-			villager.updateTrades();
+			villager.updateTrades(sl);
 			villager.startTrading(player);
 		} else {
 			if (villager.getVillagerXp() > 0) return;
