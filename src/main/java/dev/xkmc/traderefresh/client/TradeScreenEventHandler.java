@@ -6,6 +6,7 @@ import dev.xkmc.traderefresh.init.TradeRefresh;
 import dev.xkmc.traderefresh.network.RefreshToServer;
 import net.minecraft.client.gui.screens.inventory.MerchantScreen;
 import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ScreenEvent;
@@ -20,7 +21,7 @@ public class TradeScreenEventHandler {
 		}
 	}
 
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.HIGH)
 	public static void onKeyPressed(ScreenEvent.KeyPressed.Pre evt) {
 		if (evt.getScreen() instanceof MerchantScreen gui && gui.getMenu().getTraderXp() == 0) {
 			if (Keys.REFRESH.map.matches(evt.getKeyCode(), evt.getScanCode())) {
