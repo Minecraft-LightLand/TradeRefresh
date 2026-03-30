@@ -1,10 +1,13 @@
 package dev.xkmc.traderefresh.client;
 
+import dev.xkmc.traderefresh.init.Keys;
 import dev.xkmc.traderefresh.init.TRConfig;
 import dev.xkmc.traderefresh.init.TradeRefresh;
 import dev.xkmc.traderefresh.network.RefreshToServer;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.inventory.MerchantScreen;
 import net.minecraft.network.chat.Component;
 
@@ -19,6 +22,10 @@ public class RefreshButton extends Button {
 				TITLE, e -> {
 				}, DEFAULT_NARRATION);
 		this.parent = parent;
+		setTooltip(Tooltip.create(Component.translatable(
+				"traderefresh.tooltip_jei", Keys.REFRESH.map.getKey().getDisplayName()
+						.copy().withStyle(ChatFormatting.YELLOW)
+		).withStyle(ChatFormatting.GRAY)));
 	}
 
 	@Override

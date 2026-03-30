@@ -4,5 +4,6 @@
   "traderefresh.enchantable.true": "附魔台可出",
   "traderefresh.enchantable.false": "附魔台禁用",
   "traderefresh.tradable.true": "交易可出",
-  "traderefresh.tradable.false": "交易禁用"
+  "traderefresh.tradable.false": "交易禁用",
+  "traderefresh.tooltip_jei": "鼠标停在JEI界面的一个物品上按%s刷新直到该物品出现为止"
 }

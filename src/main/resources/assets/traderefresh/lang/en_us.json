@@ -4,5 +4,6 @@
   "traderefresh.enchantable.true": "Valid in Enchatment Table",
   "traderefresh.enchantable.false": "Invalid in Enchantment Table",
   "traderefresh.tradable.true": "Valid in Villager Trade",
-  "traderefresh.tradable.false": "Invalid in Villager Trade"
+  "traderefresh.tradable.false": "Invalid in Villager Trade",
+  "traderefresh.tooltip_jei": "Hover over a stack in JEI and hold %s to refresh until that stack appears"
 }
