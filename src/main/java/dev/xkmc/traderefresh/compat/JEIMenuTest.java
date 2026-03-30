@@ -27,14 +27,19 @@ public class JEIMenuTest {
 				return false;
 		}
 		for (var e : menu.trader.getOffers()) {
-			if (ItemStack.isSameItemSameComponents(e.getResult(), stack))
+			if (match(e.getResult(), stack))
 				return true;
-			if (ItemStack.isSameItemSameComponents(e.getCostA(), stack))
+			if (match(e.getCostA(), stack))
 				return true;
-			if (ItemStack.isSameItemSameComponents(e.getCostB(), stack))
+			if (match(e.getCostB(), stack))
 				return true;
 		}
 		return false;
+	}
+
+	public static boolean match(ItemStack avail, ItemStack chosen) {
+		return chosen.isComponentsPatchEmpty() && chosen.getItem() == avail.getItem() ||
+				ItemStack.isSameItemSameComponents(chosen, avail);
 	}
 
 }
