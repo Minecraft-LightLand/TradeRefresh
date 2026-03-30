@@ -5,8 +5,8 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.gradle.userdev' version '7.0.145'
-    id 'net.darkhax.curseforgegradle' version '[1.1.24,)'
+    id 'net.neoforged.gradle.userdev' version '7.0.165'
+    id 'net.darkhax.curseforgegradle' version '[1.1.24,1.2)'
     id "at.stnwtr.gradle-secrets-plugin" version "1.0.1"
     id "com.modrinth.minotaur" version "2.+"
 }
@@ -51,7 +51,12 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     mavenLocal()
-    
+
+    maven {
+        // Location of the maven for vazkii's mods
+        name 'blamejared'
+        url 'https://maven.blamejared.com'
+    }
     flatDir {
         dirs 'libs'
     }
@@ -128,6 +133,7 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-engine:5.11.0-M2"
 
     implementation jarJar(group: 'dev.xkmc', name: 'l2serial', version: l2serial_ver)
+    implementation "mezz.jei:jei-${jei_minecraft_version}:${jei_version}"
 
 }
 

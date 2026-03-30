@@ -1,5 +1,6 @@
 package dev.xkmc.traderefresh.client;
 
+import dev.xkmc.traderefresh.compat.JEIMenuTest;
 import dev.xkmc.traderefresh.init.Keys;
 import dev.xkmc.traderefresh.init.TradeRefresh;
 import dev.xkmc.traderefresh.network.RefreshToServer;
@@ -22,8 +23,13 @@ public class TradeScreenEventHandler {
 	@SubscribeEvent
 	public static void onKeyPressed(ScreenEvent.KeyPressed.Pre evt) {
 		if (evt.getScreen() instanceof MerchantScreen gui && gui.getMenu().getTraderXp() == 0) {
-			if (Keys.REFRESH.map.matches(evt.getKeyCode(), evt.getScanCode()))
+			if (Keys.REFRESH.map.matches(evt.getKeyCode(), evt.getScanCode())) {
+				if (JEIMenuTest.anythingMatched(gui.getMenu())) {
+					evt.setCanceled(true);
+					return;
+				}
 				TradeRefresh.HANDLER.toServer(new RefreshToServer());
+			}
 		}
 	}
 
