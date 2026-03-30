@@ -1,9 +1,11 @@
 package dev.xkmc.traderefresh.init;
 
+import net.minecraft.network.chat.Component;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.config.IConfigSpec;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.neoforge.common.TranslatableEnum;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class TRConfig {
@@ -11,13 +13,25 @@ public class TRConfig {
 	public static class Client {
 
 		public final ModConfigSpec.BooleanValue showEnchProperties;
+		public final ModConfigSpec.EnumValue<ButtonSide> buttonSide;
 
 		Client(ModConfigSpec.Builder builder) {
 			showEnchProperties = builder.comment("Show enchantment properties like tradeable and enchantable")
 					.comment("Will not work when Apotheosis is installed")
 					.define("showEnchProperties", false);
+			buttonSide = builder.comment("Which side of the screen to place the refresh button")
+					.defineEnum("buttonSide", ButtonSide.LEFT);
 		}
 
+	}
+
+	public enum ButtonSide implements TranslatableEnum {
+		LEFT, RIGHT;
+
+		@Override
+		public Component getTranslatedName() {
+			return Component.translatable("traderefresh.configuration.enum.buttonSide." + name());
+		}
 	}
 
 	public static class Server {

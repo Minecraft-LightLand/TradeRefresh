@@ -4,8 +4,12 @@ import dev.xkmc.traderefresh.init.Keys;
 import dev.xkmc.traderefresh.init.TRConfig;
 import dev.xkmc.traderefresh.init.TradeRefresh;
 import dev.xkmc.traderefresh.network.RefreshToServer;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.MerchantScreen;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.sounds.SoundEvents;
 import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ScreenEvent;
@@ -16,17 +20,19 @@ public class TradeScreenEventHandler {
 	@SubscribeEvent
 	public static void onInventoryGuiInit(ScreenEvent.Init.Post evt) {
 		if (evt.getScreen() instanceof MerchantScreen gui)
-			if (TRConfig.SERVER.alwaysAllowRefresh.get() || gui.getMenu().getTraderXp() == 0)
-				evt.addListener(new RefreshButton(gui));
-
+			evt.addListener(new RefreshButton(gui));
 	}
 
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.HIGH)
 	public static void onKeyPressed(ScreenEvent.KeyPressed.Pre evt) {
 		if (evt.getScreen() instanceof MerchantScreen gui) {
-			if (TRConfig.SERVER.alwaysAllowRefresh.get() || gui.getMenu().getTraderXp() == 0)
-				if (Keys.REFRESH.map.matches(evt.getKeyEvent()))
-					TradeRefresh.HANDLER.toServer(new RefreshToServer());
+			if (Keys.REFRESH.map.matches(evt.getKeyEvent())) {
+				if (!TRConfig.SERVER.alwaysAllowRefresh.get() && gui.getMenu().getTraderXp() > 0) {
+					return;
+				}
+				Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+				TradeRefresh.HANDLER.toServer(new RefreshToServer());
+			}
 		}
 	}
 

@@ -1,8 +1,24 @@
 {
-  "key.categories.traderefresh": "Trade Refresh Keys",
+  "key.category.traderefresh.main": "Trade Refresh Keys",
   "key.traderefresh.refresh": "Refresh Trade",
   "traderefresh.enchantable.true": "Valid in Enchatment Table",
   "traderefresh.enchantable.false": "Invalid in Enchantment Table",
   "traderefresh.tradable.true": "Valid in Villager Trade",
-  "traderefresh.tradable.false": "Invalid in Villager Trade"
+  "traderefresh.tradable.false": "Invalid in Villager Trade",
+  "traderefresh.button.narration": "Refresh Trade",
+  "traderefresh.button.tooltip": "Refresh Trades (%s)",
+  "traderefresh.button.disabled": "Traded, cannot refresh",
+  "traderefresh.configuration.title": "Trade Refresh Configuration",
+  "traderefresh.configuration.section.traderefresh.client.toml.title": "Trade Refresh Client Configuration",
+  "traderefresh.configuration.section.traderefresh.server.toml.title": "Trade Refresh Server Configuration",
+  "traderefresh.configuration.showEnchProperties": "Show Enchantment Properties",
+  "traderefresh.configuration.showEnchProperties.tooltip": "Show enchantment properties like tradeable and enchantable. Will not work when Apotheosis is installed.",
+  "traderefresh.configuration.buttonSide": "Button Side",
+  "traderefresh.configuration.buttonSide.tooltip": "Which side of the screen to place the refresh button.",
+  "traderefresh.configuration.alwaysAllowRefresh": "Always Allow Refresh",
+  "traderefresh.configuration.alwaysAllowRefresh.tooltip": "Always allow refreshing trade. Only trades added at current villager level will be refreshed.",
+  "traderefresh.configuration.allowEmeraldBlockForceRestock": "Allow Emerald Block Force Restock",
+  "traderefresh.configuration.allowEmeraldBlockForceRestock.tooltip": "Allow player to use emerald block to force restock.",
+  "traderefresh.configuration.enum.buttonSide.LEFT": "Left",
+  "traderefresh.configuration.enum.buttonSide.RIGHT": "Right"
 }
