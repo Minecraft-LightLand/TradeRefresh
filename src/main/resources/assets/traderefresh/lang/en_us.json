@@ -7,5 +7,6 @@
   "traderefresh.tradable.false": "Invalid in Villager Trade",
   "traderefresh.button.narration": "Refresh Trade",
   "traderefresh.button.tooltip": "Refresh Trades (%s)",
-  "traderefresh.button.disabled": "Traded, cannot refresh"
+  "traderefresh.button.disabled": "Traded, cannot refresh",
+  "traderefresh.tooltip_jei": "When refreshing with a JEI bookmarked item, trades containing that item will not be refreshed"
 }

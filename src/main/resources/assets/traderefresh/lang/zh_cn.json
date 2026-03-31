@@ -7,5 +7,6 @@
   "traderefresh.tradable.false": "交易禁用",
   "traderefresh.button.narration": "刷新交易",
   "traderefresh.button.tooltip": "刷新交易（%s）",
-  "traderefresh.button.disabled": "已交易，不可刷新"
+  "traderefresh.button.disabled": "已交易，不可刷新",
+  "traderefresh.tooltip_jei": "鼠标指向JEI收藏物品刷新时，若交易列表中存在指向的物品，则不会刷新"
 }

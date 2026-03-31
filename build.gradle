@@ -136,6 +136,9 @@ dependencies {
         jarJar.ranged(it, "[1.2.0,)")
     })
 
+    compileOnly "mezz.jei:jei-${jei_minecraft_version}-api:${jei_version}"
+    runtimeOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}:${jei_version}")
+
 }
 
 // Example for how to get properties into the manifest for reading at runtime.
