@@ -5,5 +5,21 @@
   "traderefresh.enchantable.false": "附魔台禁用",
   "traderefresh.tradable.true": "交易可出",
   "traderefresh.tradable.false": "交易禁用",
-  "traderefresh.tooltip_jei": "鼠标停在JEI界面的一个物品上按%s刷新直到该物品出现为止"
+  "traderefresh.button.narration": "刷新交易",
+  "traderefresh.button.tooltip": "刷新交易（%s）",
+  "traderefresh.button.disabled": "已交易，不可刷新",
+  "traderefresh.tooltip_jei": "鼠标指向JEI收藏物品刷新时，若交易列表中存在指向的物品，则不会刷新",
+  "traderefresh.configuration.title": "交易刷新 - 配置",
+  "traderefresh.configuration.section.traderefresh.client.toml.title": "交易刷新 - 客户端配置",
+  "traderefresh.configuration.section.traderefresh.server.toml.title": "交易刷新 - 服务端配置",
+  "traderefresh.configuration.showEnchProperties": "显示附魔属性",
+  "traderefresh.configuration.showEnchProperties.tooltip": "显示附魔书的附魔属性，如可附魔性和可交易性。安装 Apotheosis 时无效。",
+  "traderefresh.configuration.buttonSide": "按钮位置",
+  "traderefresh.configuration.buttonSide.tooltip": "刷新按钮在屏幕上的位置。",
+  "traderefresh.configuration.alwaysAllowRefresh": "始终允许刷新",
+  "traderefresh.configuration.alwaysAllowRefresh.tooltip": "始终允许刷新交易。仅刷新当前村民等级添加的交易。",
+  "traderefresh.configuration.allowEmeraldBlockForceRestock": "允许绿宝石块强制补货",
+  "traderefresh.configuration.allowEmeraldBlockForceRestock.tooltip": "允许玩家使用绿宝石块强制补货。",
+  "traderefresh.configuration.enum.buttonSide.LEFT": "左侧",
+  "traderefresh.configuration.enum.buttonSide.RIGHT": "右侧"
 }
