@@ -14,13 +14,20 @@ public class TRConfig {
 	public static class Client {
 
 		public final ForgeConfigSpec.BooleanValue showEnchProperties;
+		public final ForgeConfigSpec.EnumValue<ButtonSide> buttonSide;
 
 		Client(ForgeConfigSpec.Builder builder) {
 			showEnchProperties = builder.comment("Show enchantment properties like tradeable and enchantable")
 					.comment("Will not work when Apotheosis is installed")
 					.define("showEnchProperties", true);
+			buttonSide = builder.comment("Which side of the screen to place the refresh button")
+					.defineEnum("buttonSide", ButtonSide.LEFT);
 		}
 
+	}
+
+	public enum ButtonSide {
+		LEFT, RIGHT
 	}
 
 	public static class Common {
@@ -36,7 +43,6 @@ public class TRConfig {
 		public final ForgeConfigSpec.BooleanValue banAllTableEnchantmentsByDefault;
 		public final ForgeConfigSpec.ConfigValue<List<String>> tableNamespaceBlacklist;
 		public final ForgeConfigSpec.ConfigValue<List<String>> tableNamespaceWhitelist;
-
 		public final ForgeConfigSpec.ConfigValue<List<String>> tableIdBlacklist;
 		public final ForgeConfigSpec.ConfigValue<List<String>> tableIdWhitelist;
 
@@ -58,7 +64,6 @@ public class TRConfig {
 			tableNamespaceWhitelist = builder.define("tableNamespaceWhitelist", new ArrayList<>(List.of("minecraft")));
 			tableIdBlacklist = builder.define("tableIdBlacklist", new ArrayList<>(List.of()));
 			tableIdWhitelist = builder.define("tableIdWhitelist", new ArrayList<>(List.of("minecraft:unbreaking")));
-
 		}
 
 	}

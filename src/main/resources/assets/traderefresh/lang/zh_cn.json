@@ -4,5 +4,8 @@
   "traderefresh.enchantable.true": "附魔台可出",
   "traderefresh.enchantable.false": "附魔台禁用",
   "traderefresh.tradable.true": "交易可出",
-  "traderefresh.tradable.false": "交易禁用"
+  "traderefresh.tradable.false": "交易禁用",
+  "traderefresh.button.narration": "刷新交易",
+  "traderefresh.button.tooltip": "刷新交易（%s）",
+  "traderefresh.button.disabled": "已交易，不可刷新"
 }

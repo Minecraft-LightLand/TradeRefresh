@@ -4,5 +4,8 @@
   "traderefresh.enchantable.true": "Valid in Enchatment Table",
   "traderefresh.enchantable.false": "Invalid in Enchantment Table",
   "traderefresh.tradable.true": "Valid in Villager Trade",
-  "traderefresh.tradable.false": "Invalid in Villager Trade"
+  "traderefresh.tradable.false": "Invalid in Villager Trade",
+  "traderefresh.button.narration": "Refresh Trade",
+  "traderefresh.button.tooltip": "Refresh Trades (%s)",
+  "traderefresh.button.disabled": "Traded, cannot refresh"
 }
