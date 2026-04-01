@@ -1,7 +1,6 @@
 package dev.xkmc.traderefresh.client;
 
-import dev.xkmc.traderefresh.compat.EMIMenuTest;
-import dev.xkmc.traderefresh.compat.JEIMenuTest;
+import dev.xkmc.traderefresh.compat.RecipeViewerMenu;
 import dev.xkmc.traderefresh.init.Keys;
 import dev.xkmc.traderefresh.init.TRConfig;
 import dev.xkmc.traderefresh.init.TradeRefresh;
@@ -11,7 +10,6 @@ import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.inventory.MerchantScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.inventory.MerchantMenu;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -30,7 +28,7 @@ public class TradeScreenEventHandler {
 	public static void onKeyPressed(ScreenEvent.KeyPressed.Pre evt) {
 		if (evt.getScreen() instanceof MerchantScreen gui) {
 			if (Keys.REFRESH.map.matches(evt.getKeyCode(), evt.getScanCode())) {
-				if (isRecipeViewerMatched(gui.getMenu())) {
+				if (RecipeViewerMenu.anythingMatched(gui.getMenu())) {
 					return;
 				}
 				if (!TRConfig.COMMON.alwaysAllowRefresh.get() && gui.getMenu().getTraderXp() > 0) {
@@ -49,7 +47,7 @@ public class TradeScreenEventHandler {
 		if (!pendingRecipeViewerCheck) return;
 		pendingRecipeViewerCheck = false;
 		if (Minecraft.getInstance().screen instanceof MerchantScreen gui) {
-			if (isRecipeViewerMatched(gui.getMenu())) {
+			if (RecipeViewerMenu.anythingMatched(gui.getMenu())) {
 				Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.NOTE_BLOCK_CHIME, 1.0F));
 			}
 		}
@@ -73,10 +71,6 @@ public class TradeScreenEventHandler {
 		if (hovered instanceof RefreshButton btn && btn.active) {
 			RefreshButton.staticPressed = btn;
 		}
-	}
-
-	private static boolean isRecipeViewerMatched(MerchantMenu menu) {
-		return JEIMenuTest.anythingMatched(menu) || EMIMenuTest.anythingMatched(menu);
 	}
 
 	private static GuiEventListener findHovered(net.minecraft.client.gui.screens.Screen screen, double mouseX, double mouseY) {
