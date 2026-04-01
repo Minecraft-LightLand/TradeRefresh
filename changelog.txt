@@ -1,2 +1,2 @@
 2.5.0
-- Add refresh until an item appear feature for JEI integration
+- Add refresh until an item appear feature for JEI/EMI integration
