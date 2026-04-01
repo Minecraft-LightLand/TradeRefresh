@@ -8,6 +8,7 @@
   "traderefresh.button.narration": "Refresh Trade",
   "traderefresh.button.tooltip": "Refresh Trades (%s)",
   "traderefresh.button.disabled": "Traded, cannot refresh",
+  "traderefresh.tooltip_recipe_viewer": "When refreshing while hovering over an item in %s, trades containing that item will not be refreshed",
   "traderefresh.configuration.title": "Trade Refresh Configuration",
   "traderefresh.configuration.section.traderefresh.client.toml.title": "Trade Refresh Client Configuration",
   "traderefresh.configuration.section.traderefresh.server.toml.title": "Trade Refresh Server Configuration",

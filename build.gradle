@@ -169,10 +169,19 @@ repositories {
     flatDir {
         dirs 'libs'
     }
+
+    maven {
+        name = "Jared"
+        url = "https://maven.blamejared.com"
+    }
 }
 
 dependencies {
     implementation jarJar(group: 'dev.xkmc', name: 'l2serial', version: l2serial_ver)
+
+    // JEI
+    compileOnly "mezz.jei:jei-${jei_minecraft_version}-api:${jei_version}"
+    runtimeOnly "mezz.jei:jei-${jei_minecraft_version}:${jei_version}"
 }
 
 

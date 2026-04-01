@@ -8,6 +8,7 @@
   "traderefresh.button.narration": "刷新交易",
   "traderefresh.button.tooltip": "刷新交易（%s）",
   "traderefresh.button.disabled": "已交易，不可刷新",
+  "traderefresh.tooltip_recipe_viewer": "鼠标指向%s中的物品刷新时，若交易列表中存在该物品则不会刷新",
   "traderefresh.configuration.title": "交易刷新 - 配置",
   "traderefresh.configuration.section.traderefresh.client.toml.title": "交易刷新 - 客户端配置",
   "traderefresh.configuration.section.traderefresh.server.toml.title": "交易刷新 - 服务端配置",

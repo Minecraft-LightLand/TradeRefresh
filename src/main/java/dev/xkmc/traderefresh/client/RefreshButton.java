@@ -3,7 +3,7 @@ package dev.xkmc.traderefresh.client;
 import dev.xkmc.traderefresh.init.Keys;
 import dev.xkmc.traderefresh.init.TRConfig;
 import dev.xkmc.traderefresh.init.TradeRefresh;
-import dev.xkmc.traderefresh.network.RefreshToServer;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
@@ -12,6 +12,7 @@ import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.neoforged.fml.ModList;
 
 public class RefreshButton extends Button {
 
@@ -57,7 +58,7 @@ public class RefreshButton extends Button {
 	@Override
 	public void onRelease(MouseButtonEvent event) {
 		if (this.isHovered() && this.active) {
-			TradeRefresh.HANDLER.toServer(new RefreshToServer());
+			TradeScreenEventHandler.tryRefresh(parent, false);
 		}
 		pressed = false;
 	}
@@ -67,8 +68,15 @@ public class RefreshButton extends Button {
 		this.active = TRConfig.SERVER.alwaysAllowRefresh.get() || parent.getMenu().getTraderXp() == 0;
 
 		if (this.active) {
-			this.setTooltip(Tooltip.create(Component.translatable("traderefresh.button.tooltip",
-					Keys.REFRESH.map.getTranslatedKeyMessage())));
+			Component tooltip = Component.translatable("traderefresh.button.tooltip",
+					Keys.REFRESH.map.getTranslatedKeyMessage());
+			String recipeViewerName = getRecipeViewerName();
+			if (recipeViewerName != null) {
+				tooltip = tooltip.copy().append("\n")
+						.append(Component.translatable("traderefresh.tooltip_recipe_viewer", recipeViewerName)
+								.withStyle(ChatFormatting.GRAY));
+			}
+			this.setTooltip(Tooltip.create(tooltip));
 		} else {
 			this.setTooltip(Tooltip.create(Component.translatable("traderefresh.button.disabled")));
 		}
@@ -85,6 +93,11 @@ public class RefreshButton extends Button {
 		}
 
 		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, texture, this.getX(), this.getY(), 0, 0, 18, 18, 18, 18);
+	}
+
+	private static String getRecipeViewerName() {
+		if (ModList.get().isLoaded("jei")) return "JEI";
+		return null;
 	}
 
 }
