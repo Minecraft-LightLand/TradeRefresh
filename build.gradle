@@ -107,6 +107,7 @@ repositories {
         }
     }
     maven {
+        name 'architectury'
         url "https://maven.architectury.dev/"
     }
     maven { url "https://maven.bai.lol" }
@@ -124,6 +125,14 @@ repositories {
     maven {
         url = "https://maven.theillusivec4.top/"
     }
+    maven {
+        name 'shedaniel'
+        url 'https://maven.shedaniel.me/'
+    }
+    maven {
+        name 'emi'
+        url 'https://maven.terraformersmc.com/releases/'
+    }
 }
 
 dependencies {
@@ -136,12 +145,21 @@ dependencies {
         jarJar.ranged(it, "[1.2.0,)")
     })
 
+    // JEI
     compileOnly "mezz.jei:jei-${jei_minecraft_version}-api:${jei_version}"
     runtimeOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}:${jei_version}")
 
-    compileOnly fg.deobf("curse.maven:emi-580555:6420945")
-    runtimeOnly fg.deobf("curse.maven:emi-580555:6420945")
+    // EMI
+    compileOnly "dev.emi:emi-forge:${emi_version}:api"
+    runtimeOnly fg.deobf("dev.emi:emi-forge:${emi_version}")
 
+    // REI
+    compileOnly "me.shedaniel.cloth:cloth-config-forge:${cloth_config_version}"
+    compileOnly "dev.architectury:architectury-forge:${architectury_version}"
+    compileOnly "me.shedaniel:RoughlyEnoughItems-api-forge:${rei_version}"
+//    runtimeOnly fg.deobf("me.shedaniel.cloth:cloth-config-forge:${cloth_config_version}")
+//    runtimeOnly fg.deobf("dev.architectury:architectury-forge:${architectury_version}")
+//    runtimeOnly fg.deobf("me.shedaniel:RoughlyEnoughItems-forge:${rei_version}")
 }
 
 // Example for how to get properties into the manifest for reading at runtime.
