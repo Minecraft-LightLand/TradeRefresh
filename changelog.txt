@@ -1,3 +1,6 @@
+3.0.2
+- Add refresh until an item appear feature for JEI integration
+
 3.0.1
 - Add back enchantment feature display (default off)
 

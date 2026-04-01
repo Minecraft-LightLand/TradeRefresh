@@ -19,7 +19,7 @@ import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 
-@EventBusSubscriber(modid = TradeRefresh.MODID)
+@EventBusSubscriber(modid = TradeRefresh.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class RestockEventHandler {
 
 	@SubscribeEvent
