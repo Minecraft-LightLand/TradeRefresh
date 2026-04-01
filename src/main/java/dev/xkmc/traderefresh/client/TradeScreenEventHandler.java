@@ -1,5 +1,6 @@
 package dev.xkmc.traderefresh.client;
 
+import dev.xkmc.traderefresh.compat.EMIMenuTest;
 import dev.xkmc.traderefresh.compat.JEIMenuTest;
 import dev.xkmc.traderefresh.init.Keys;
 import dev.xkmc.traderefresh.init.TRConfig;
@@ -10,14 +11,14 @@ import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.inventory.MerchantScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.inventory.MerchantMenu;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class TradeScreenEventHandler {
 
-	private static boolean pendingJeiCheck = false;
+	private static boolean pendingRecipeViewerCheck = false;
 
 	@SubscribeEvent
 	public static void onInventoryGuiInit(ScreenEvent.Init.Post evt) {
@@ -25,12 +26,11 @@ public class TradeScreenEventHandler {
 			evt.addListener(new RefreshButton(gui));
 	}
 
-	@SubscribeEvent(priority = EventPriority.HIGH)
+	@SubscribeEvent
 	public static void onKeyPressed(ScreenEvent.KeyPressed.Pre evt) {
 		if (evt.getScreen() instanceof MerchantScreen gui) {
 			if (Keys.REFRESH.map.matches(evt.getKeyCode(), evt.getScanCode())) {
-				if (JEIMenuTest.anythingMatched(gui.getMenu())) {
-					evt.setCanceled(true);
+				if (isRecipeViewerMatched(gui.getMenu())) {
 					return;
 				}
 				if (!TRConfig.COMMON.alwaysAllowRefresh.get() && gui.getMenu().getTraderXp() > 0) {
@@ -38,7 +38,7 @@ public class TradeScreenEventHandler {
 				}
 				Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
 				TradeRefresh.HANDLER.toServer(new RefreshToServer());
-				pendingJeiCheck = true;
+				pendingRecipeViewerCheck = true;
 			}
 		}
 	}
@@ -46,10 +46,10 @@ public class TradeScreenEventHandler {
 	@SubscribeEvent
 	public static void onClientTick(TickEvent.ClientTickEvent evt) {
 		if (evt.phase != TickEvent.Phase.END) return;
-		if (!pendingJeiCheck) return;
-		pendingJeiCheck = false;
+		if (!pendingRecipeViewerCheck) return;
+		pendingRecipeViewerCheck = false;
 		if (Minecraft.getInstance().screen instanceof MerchantScreen gui) {
-			if (JEIMenuTest.anythingMatched(gui.getMenu())) {
+			if (isRecipeViewerMatched(gui.getMenu())) {
 				Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.NOTE_BLOCK_CHIME, 1.0F));
 			}
 		}
@@ -73,6 +73,10 @@ public class TradeScreenEventHandler {
 		if (hovered instanceof RefreshButton btn && btn.active) {
 			RefreshButton.staticPressed = btn;
 		}
+	}
+
+	private static boolean isRecipeViewerMatched(MerchantMenu menu) {
+		return JEIMenuTest.anythingMatched(menu) || EMIMenuTest.anythingMatched(menu);
 	}
 
 	private static GuiEventListener findHovered(net.minecraft.client.gui.screens.Screen screen, double mouseX, double mouseY) {

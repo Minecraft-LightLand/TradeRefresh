@@ -8,5 +8,5 @@
   "traderefresh.button.narration": "Refresh Trade",
   "traderefresh.button.tooltip": "Refresh Trades (%s)",
   "traderefresh.button.disabled": "Traded, cannot refresh",
-  "traderefresh.tooltip_jei": "When refreshing with a JEI bookmarked item, trades containing that item will not be refreshed"
+  "traderefresh.tooltip_recipe_viewer": "When refreshing while hovering over an item in %s, trades containing that item will not be refreshed"
 }

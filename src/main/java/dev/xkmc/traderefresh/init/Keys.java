@@ -5,7 +5,7 @@ import net.minecraft.client.KeyMapping;
 import org.lwjgl.glfw.GLFW;
 
 public enum Keys {
-	REFRESH("key.traderefresh.refresh", GLFW.GLFW_KEY_R);
+	REFRESH("key.traderefresh.refresh", GLFW.GLFW_KEY_T);
 
 	public final KeyMapping map;
 

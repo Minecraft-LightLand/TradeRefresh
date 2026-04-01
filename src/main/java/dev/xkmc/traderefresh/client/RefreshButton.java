@@ -55,9 +55,10 @@ public class RefreshButton extends Button {
 		if (this.active) {
 			Component tooltip = Component.translatable("traderefresh.button.tooltip",
 					Keys.REFRESH.map.getTranslatedKeyMessage());
-			if (ModList.get().isLoaded("jei")) {
+			String recipeViewerName = getRecipeViewerName();
+			if (recipeViewerName != null) {
 				tooltip = tooltip.copy().append("\n")
-						.append(Component.translatable("traderefresh.tooltip_jei",
+						.append(Component.translatable("traderefresh.tooltip_recipe_viewer", recipeViewerName,
 								Keys.REFRESH.map.getKey().getDisplayName()
 										.copy().withStyle(ChatFormatting.YELLOW))
 								.withStyle(ChatFormatting.GRAY));
@@ -79,5 +80,13 @@ public class RefreshButton extends Button {
 		}
 
 		g.blit(texture, this.getX(), this.getY(), 0, 0, 18, 18, 18, 18);
+	}
+
+	private static String getRecipeViewerName() {
+		boolean jei = ModList.get().isLoaded("jei");
+		boolean emi = ModList.get().isLoaded("emi");
+		if (emi) return "EMI";
+		if (jei) return "JEI";
+		return null;
 	}
 }

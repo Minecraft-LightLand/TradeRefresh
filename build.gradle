@@ -139,6 +139,9 @@ dependencies {
     compileOnly "mezz.jei:jei-${jei_minecraft_version}-api:${jei_version}"
     runtimeOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}:${jei_version}")
 
+    compileOnly fg.deobf("curse.maven:emi-580555:6420945")
+    runtimeOnly fg.deobf("curse.maven:emi-580555:6420945")
+
 }
 
 // Example for how to get properties into the manifest for reading at runtime.
