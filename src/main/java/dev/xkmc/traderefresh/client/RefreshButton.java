@@ -3,7 +3,6 @@ package dev.xkmc.traderefresh.client;
 import dev.xkmc.traderefresh.init.Keys;
 import dev.xkmc.traderefresh.init.TRConfig;
 import dev.xkmc.traderefresh.init.TradeRefresh;
-import dev.xkmc.traderefresh.network.RefreshToServer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -57,7 +56,7 @@ public class RefreshButton extends Button {
 	@Override
 	public boolean mouseReleased(double mouseX, double mouseY, int button) {
 		if (this.isHovered() && this.active) {
-			TradeRefresh.HANDLER.toServer(new RefreshToServer());
+			TradeScreenEventHandler.tryRefresh(parent, false);
 		}
 		pressed = false;
 		return super.mouseReleased(mouseX, mouseY, button);
@@ -70,11 +69,10 @@ public class RefreshButton extends Button {
 		if (this.active) {
 			Component tooltip = Component.translatable("traderefresh.button.tooltip",
 					Keys.REFRESH.map.getTranslatedKeyMessage());
-			if (ModList.get().isLoaded("jei")) {
+			String recipeViewerName = getRecipeViewerName();
+			if (recipeViewerName != null) {
 				tooltip = tooltip.copy().append("\n")
-						.append(Component.translatable("traderefresh.tooltip_jei",
-								Keys.REFRESH.map.getKey().getDisplayName()
-										.copy().withStyle(ChatFormatting.YELLOW))
+						.append(Component.translatable("traderefresh.tooltip_recipe_viewer", recipeViewerName)
 								.withStyle(ChatFormatting.GRAY));
 			}
 			this.setTooltip(Tooltip.create(tooltip));
@@ -95,4 +93,15 @@ public class RefreshButton extends Button {
 
 		g.blit(texture, this.getX(), this.getY(), 0, 0, 18, 18, 18, 18);
 	}
+
+	private static String getRecipeViewerName() {
+		boolean jei = ModList.get().isLoaded("jei");
+		boolean emi = ModList.get().isLoaded("emi");
+		boolean rei = ModList.get().isLoaded("roughlyenoughitems");
+		if (rei) return "REI";
+		if (emi) return "EMI";
+		if (jei) return "JEI";
+		return null;
+	}
+
 }
