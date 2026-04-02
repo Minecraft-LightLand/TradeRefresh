@@ -1,6 +1,6 @@
 package dev.xkmc.traderefresh.client;
 
-import dev.xkmc.traderefresh.compat.JEIMenuTest;
+import dev.xkmc.traderefresh.compat.RecipeViewerMenu;
 import dev.xkmc.traderefresh.init.Keys;
 import dev.xkmc.traderefresh.init.TRConfig;
 import dev.xkmc.traderefresh.init.TradeRefresh;
@@ -19,7 +19,7 @@ import net.neoforged.neoforge.client.event.ScreenEvent;
 @EventBusSubscriber(value = Dist.CLIENT, modid = TradeRefresh.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class TradeScreenEventHandler {
 
-	private static boolean pendingJeiCheck = false;
+	private static boolean pendingRecipeViewerCheck = false;
 
 	@SubscribeEvent
 	public static void onInventoryGuiInit(ScreenEvent.Init.Post evt) {
@@ -31,26 +31,31 @@ public class TradeScreenEventHandler {
 	public static void onKeyPressed(ScreenEvent.KeyPressed.Pre evt) {
 		if (evt.getScreen() instanceof MerchantScreen gui) {
 			if (Keys.REFRESH.map.matches(evt.getKeyCode(), evt.getScanCode())) {
-				if (JEIMenuTest.anythingMatched(gui.getMenu())) {
-					evt.setCanceled(true);
-					return;
-				}
-				if (!TRConfig.SERVER.alwaysAllowRefresh.get() && gui.getMenu().getTraderXp() > 0) {
-					return;
-				}
-				Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
-				TradeRefresh.HANDLER.toServer(new RefreshToServer());
-				pendingJeiCheck = true;
+				tryRefresh(gui, true);
 			}
 		}
 	}
 
+	public static void tryRefresh(MerchantScreen gui, boolean playSound) {
+		if (RecipeViewerMenu.anythingMatched(gui.getMenu())) {
+			return;
+		}
+		if (!TRConfig.SERVER.alwaysAllowRefresh.get() && gui.getMenu().getTraderXp() > 0) {
+			return;
+		}
+		if (playSound) {
+			Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+		}
+		TradeRefresh.HANDLER.toServer(new RefreshToServer());
+		pendingRecipeViewerCheck = true;
+	}
+
 	@SubscribeEvent
 	public static void onClientTick(ClientTickEvent.Post evt) {
-		if (!pendingJeiCheck) return;
-		pendingJeiCheck = false;
+		if (!pendingRecipeViewerCheck) return;
+		pendingRecipeViewerCheck = false;
 		if (Minecraft.getInstance().screen instanceof MerchantScreen gui) {
-			if (JEIMenuTest.anythingMatched(gui.getMenu())) {
+			if (RecipeViewerMenu.anythingMatched(gui.getMenu())) {
 				Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.NOTE_BLOCK_CHIME.value(), 1.0F));
 			}
 		}

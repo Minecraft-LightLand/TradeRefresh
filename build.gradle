@@ -53,9 +53,20 @@ repositories {
     mavenLocal()
 
     maven {
-        // Location of the maven for vazkii's mods
         name 'blamejared'
         url 'https://maven.blamejared.com'
+    }
+    maven {
+        name 'emi'
+        url 'https://maven.terraformersmc.com/releases/'
+    }
+    maven {
+        name 'shedaniel'
+        url 'https://maven.shedaniel.me/'
+    }
+    maven {
+        name 'architectury'
+        url 'https://maven.architectury.dev/'
     }
     flatDir {
         dirs 'libs'
@@ -133,8 +144,22 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-engine:5.11.0-M2"
 
     implementation jarJar(group: 'dev.xkmc', name: 'l2serial', version: l2serial_ver)
-    implementation "mezz.jei:jei-${jei_minecraft_version}:${jei_version}"
 
+    // JEI
+    compileOnly "mezz.jei:jei-${jei_minecraft_version}-api:${jei_version}"
+    runtimeOnly "mezz.jei:jei-${jei_minecraft_version}:${jei_version}"
+
+    // EMI
+    compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
+    runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
+
+    // REI
+    compileOnly "me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}"
+    compileOnly "dev.architectury:architectury-neoforge:${architectury_version}"
+    compileOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
+//    runtimeOnly "me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}"
+//    runtimeOnly "dev.architectury:architectury-neoforge:${architectury_version}"
+//    runtimeOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
 }
 
 tasks.register('publishCurseForge', TaskPublishCurseForge) {

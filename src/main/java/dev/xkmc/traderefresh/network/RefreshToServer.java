@@ -17,8 +17,8 @@ public record RefreshToServer() implements SerialPacketBase<RefreshToServer> {
 		if (TRConfig.SERVER.alwaysAllowRefresh.get()) {
 			player.doCloseContainer();
 			var offer = villager.getOffers();
-			offer.remove(offer.size() - 1);
-			if (offer.size() % 2 != 0) offer.remove(offer.size() - 1);
+			offer.removeLast();
+			if (offer.size() % 2 != 0) offer.removeLast();
 			villager.setOffers(offer);
 			villager.updateTrades();
 			villager.startTrading(player);
