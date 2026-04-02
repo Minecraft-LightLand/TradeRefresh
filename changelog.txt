@@ -1,2 +1,5 @@
+2.5.1
+- Add REI integration for refresh lock
+
 2.5.0
 - Add refresh until an item appear feature for JEI/EMI integration
