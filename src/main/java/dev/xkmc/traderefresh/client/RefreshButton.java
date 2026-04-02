@@ -58,9 +58,7 @@ public class RefreshButton extends Button {
 			String recipeViewerName = getRecipeViewerName();
 			if (recipeViewerName != null) {
 				tooltip = tooltip.copy().append("\n")
-						.append(Component.translatable("traderefresh.tooltip_recipe_viewer", recipeViewerName,
-								Keys.REFRESH.map.getKey().getDisplayName()
-										.copy().withStyle(ChatFormatting.YELLOW))
+						.append(Component.translatable("traderefresh.tooltip_recipe_viewer", recipeViewerName)
 								.withStyle(ChatFormatting.GRAY));
 			}
 			this.setTooltip(Tooltip.create(tooltip));
@@ -85,8 +83,11 @@ public class RefreshButton extends Button {
 	private static String getRecipeViewerName() {
 		boolean jei = ModList.get().isLoaded("jei");
 		boolean emi = ModList.get().isLoaded("emi");
+		boolean rei = ModList.get().isLoaded("roughlyenoughitems");
+		if (rei) return "REI";
 		if (emi) return "EMI";
 		if (jei) return "JEI";
 		return null;
 	}
+
 }

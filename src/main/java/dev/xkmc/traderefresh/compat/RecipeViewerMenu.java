@@ -20,6 +20,12 @@ public class RecipeViewerMenu {
 			} catch (Throwable ignored) {
 			}
 		}
+		if (ModList.get().isLoaded("roughlyenoughitems")) {
+			try {
+				if (ReiImpl.anythingMatched(menu)) return true;
+			} catch (Throwable ignored) {
+			}
+		}
 		return false;
 	}
 
@@ -50,7 +56,6 @@ public class RecipeViewerMenu {
 			}
 			return matchesOffers(menu, stack);
 		}
-
 	}
 
 	private static class EmiImpl {
@@ -65,6 +70,30 @@ public class RecipeViewerMenu {
 			ItemStack stack = stacks.get(0).getItemStack();
 			if (stack == null || stack.isEmpty()) return false;
 			return matchesOffers(menu, stack);
+		}
+	}
+
+	private static class ReiImpl {
+
+		static boolean anythingMatched(MerchantMenu menu) {
+			var overlay = me.shedaniel.rei.api.client.REIRuntime.getInstance().getOverlay();
+			if (overlay.isEmpty()) return false;
+			var screenOverlay = overlay.get();
+			var focusedStack = screenOverlay.getEntryList().getFocusedStack();
+			if (!focusedStack.isEmpty() && checkStack(menu, focusedStack)) return true;
+			var favoritesList = screenOverlay.getFavoritesList();
+			if (favoritesList.isPresent()) {
+				focusedStack = favoritesList.get().getFocusedStack();
+				if (!focusedStack.isEmpty() && checkStack(menu, focusedStack)) return true;
+			}
+			return false;
+		}
+		private static boolean checkStack(MerchantMenu menu, me.shedaniel.rei.api.common.entry.EntryStack<?> focusedStack) {
+			Object value = focusedStack.getValue();
+			if (value instanceof ItemStack itemStack && !itemStack.isEmpty()) {
+				return matchesOffers(menu, itemStack);
+			}
+			return false;
 		}
 
 	}

@@ -1,4 +1,3 @@
-
 package dev.xkmc.traderefresh.init;
 
 import net.minecraft.client.KeyMapping;
