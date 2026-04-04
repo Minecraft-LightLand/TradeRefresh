@@ -249,6 +249,10 @@ tasks.register('publishCurseForge', TaskPublishCurseForge) {
     mainFile.addEnvironment("Client", "Server")
     mainFile.addGameVersion("1.20.1")
     mainFile.addModLoader("NeoForge", "Forge")
+    mainFile.addOptional(
+            "jei",
+            "emi",
+            "roughly-enough-items")
     mainFile.releaseType = "release"
     disableVersionDetection()
 }
@@ -263,4 +267,9 @@ modrinth {
     gameVersions = ["1.20.1"]
     loaders = ["neoforge", "forge"]
     changelog = new File('./changelog.txt').text.split("\n\n")[0]
+    dependencies {
+        optional.project "jei"
+        optional.project "emi"
+        optional.project "rei"
+    }
 }
