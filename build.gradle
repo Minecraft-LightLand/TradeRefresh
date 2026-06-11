@@ -243,6 +243,7 @@ jar {
 }
 
 tasks.register('publishCurseForge', TaskPublishCurseForge) {
+    group = 'publishing'
     apiToken = secrets.get("curseforge_token")
     def mainFile = upload(project.curseforge_project, new File("./build/libs/${modid}-${ll_version}.jar"))
     mainFile.changelog = new File('./changelog.txt')

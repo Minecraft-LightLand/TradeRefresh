@@ -1,3 +1,6 @@
+2.5.2
+- Fix refresh lock in multi-player
+
 2.5.1
 - Add REI integration for refresh lock
 

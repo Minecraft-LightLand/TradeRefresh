@@ -10,13 +10,14 @@ import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.inventory.MerchantScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.inventory.MerchantMenu;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class TradeScreenEventHandler {
 
-	private static boolean pendingRecipeViewerCheck = false;
+	private static int pendingRecipeViewerCheck = 0;
 
 	@SubscribeEvent
 	public static void onInventoryGuiInit(ScreenEvent.Init.Post evt) {
@@ -24,10 +25,13 @@ public class TradeScreenEventHandler {
 			evt.addListener(new RefreshButton(gui));
 	}
 
+	private static MerchantMenu staller = null;
+
 	@SubscribeEvent
 	public static void onKeyPressed(ScreenEvent.KeyPressed.Pre evt) {
 		if (evt.getScreen() instanceof MerchantScreen gui) {
 			if (Keys.REFRESH.map.matches(evt.getKeyCode(), evt.getScanCode())) {
+				if (staller == gui.getMenu()) return;
 				if (RecipeViewerMenu.anythingMatched(gui.getMenu())) {
 					return;
 				}
@@ -35,8 +39,9 @@ public class TradeScreenEventHandler {
 					return;
 				}
 				Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+				staller = gui.getMenu();
 				TradeRefresh.HANDLER.toServer(new RefreshToServer());
-				pendingRecipeViewerCheck = true;
+				pendingRecipeViewerCheck = 20;
 			}
 		}
 	}
@@ -44,10 +49,12 @@ public class TradeScreenEventHandler {
 	@SubscribeEvent
 	public static void onClientTick(TickEvent.ClientTickEvent evt) {
 		if (evt.phase != TickEvent.Phase.END) return;
-		if (!pendingRecipeViewerCheck) return;
-		pendingRecipeViewerCheck = false;
+		if (pendingRecipeViewerCheck <= 0) return;
+		pendingRecipeViewerCheck--;
 		if (Minecraft.getInstance().screen instanceof MerchantScreen gui) {
+			if (staller == gui.getMenu()) return;
 			if (RecipeViewerMenu.anythingMatched(gui.getMenu())) {
+				pendingRecipeViewerCheck = 0;
 				Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.NOTE_BLOCK_CHIME, 1.0F));
 			}
 		}
