@@ -193,6 +193,8 @@ tasks.register('publishCurseForge', net.darkhax.curseforgegradle.TaskPublishCurs
     mainFile.addEnvironment("Client", "Server")
     mainFile.addGameVersion("26.1", "26.1.1", "26.1.2")
     mainFile.addModLoader("NeoForge")
+    mainFile.addOptional(
+            "jei")
     mainFile.releaseType = "release"
     disableVersionDetection()
 }
@@ -207,4 +209,7 @@ modrinth {
     gameVersions = ["26.1", "26.1.1", "26.1.2"]
     loaders = ["neoforge"]
     changelog = new File('./changelog.txt').text.split("\n\n")[0]
+    dependencies {
+        optional.project "jei"
+    }
 }
