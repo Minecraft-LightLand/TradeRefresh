@@ -9,6 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.MerchantScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.inventory.MerchantMenu;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -19,7 +20,7 @@ import net.neoforged.neoforge.client.event.ScreenEvent;
 @EventBusSubscriber(value = Dist.CLIENT, modid = TradeRefresh.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class TradeScreenEventHandler {
 
-	private static boolean pendingRecipeViewerCheck = false;
+	private static int pendingRecipeViewerCheck = 20;
 
 	@SubscribeEvent
 	public static void onInventoryGuiInit(ScreenEvent.Init.Post evt) {
@@ -36,26 +37,30 @@ public class TradeScreenEventHandler {
 		}
 	}
 
+	private static MerchantMenu staller = null;
+
 	public static void tryRefresh(MerchantScreen gui, boolean playSound) {
-		if (RecipeViewerMenu.anythingMatched(gui.getMenu())) {
-			return;
-		}
+		if (staller == gui.getMenu()) return;
+		if (RecipeViewerMenu.anythingMatched(gui.getMenu())) return;
 		if (!TRConfig.SERVER.alwaysAllowRefresh.get() && gui.getMenu().getTraderXp() > 0) {
 			return;
 		}
 		if (playSound) {
 			Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
 		}
+		staller = gui.getMenu();
 		TradeRefresh.HANDLER.toServer(new RefreshToServer());
-		pendingRecipeViewerCheck = true;
+		pendingRecipeViewerCheck = 20;
 	}
 
 	@SubscribeEvent
 	public static void onClientTick(ClientTickEvent.Post evt) {
-		if (!pendingRecipeViewerCheck) return;
-		pendingRecipeViewerCheck = false;
+		if (pendingRecipeViewerCheck <= 0) return;
+		pendingRecipeViewerCheck--;
 		if (Minecraft.getInstance().screen instanceof MerchantScreen gui) {
+			if (staller == gui.getMenu()) return;
 			if (RecipeViewerMenu.anythingMatched(gui.getMenu())) {
+				pendingRecipeViewerCheck = 0;
 				Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.NOTE_BLOCK_CHIME.value(), 1.0F));
 			}
 		}
