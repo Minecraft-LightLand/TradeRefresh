@@ -14,7 +14,7 @@ public class MyJeiPlugin implements IModPlugin {
 
 	@Override
 	public Identifier getPluginUid() {
-		return TradeRefresh.loc("main");
+		return Identifier.fromNamespaceAndPath(TradeRefresh.MODID, "main");
 	}
 
 	@Override

@@ -1,3 +1,6 @@
+26.1.0.3
+- Fix rare startup crash
+
 26.1.0.2
 - Support 26.1.1
 
